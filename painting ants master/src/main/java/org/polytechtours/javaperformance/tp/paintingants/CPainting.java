@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 
 /**
  * <p>
@@ -54,6 +55,7 @@ public class CPainting extends Canvas implements MouseListener {
   private PaintingAnts mApplis;
 
   private boolean mSuspendu = false;
+  private HashMap<Integer, Color> colors = new HashMap<Integer, Color>();
 
   /******************************************************************************
    * Titre : public CPainting() Description : Constructeur de la classe
@@ -341,14 +343,16 @@ public class CPainting extends Canvas implements MouseListener {
                   G += CPainting.mMatriceConv9[k][l] * mCouleurs[m][n].getGreen();
                   B += CPainting.mMatriceConv9[k][l] * mCouleurs[m][n].getBlue();
                 }
-              }
-              lColor = new Color((int) R, (int) G, (int) B);
+              }              
+              int key = (int) (65536 * R + 256 * G + B);
+              if(colors.get(key) == null)
+            	  colors.put(key, new Color((int) R, (int) G, (int) B));
 
-              mGraphics.setColor(lColor);
-
+              mGraphics.setColor(colors.get(key));
               m = (x + i - 1 + mDimension.width) % mDimension.width;
               n = (y + j - 1 + mDimension.height) % mDimension.height;
-              mCouleurs[m][n] = lColor;
+
+              mCouleurs[m][n] = colors.get(key);
               if (!mSuspendu) {
                 mGraphics.fillRect(m, n, 1, 1);
               }
@@ -370,12 +374,15 @@ public class CPainting extends Canvas implements MouseListener {
                   B += CPainting.mMatriceConv25[k][l] * mCouleurs[m][n].getBlue();
                 }
               }
-              lColor = new Color((int) R, (int) G, (int) B);
-              mGraphics.setColor(lColor);
+              int key = (int) (65536 * R + 256 * G + B);
+              if(colors.get(key) == null)
+            	  colors.put(key, new Color((int) R, (int) G, (int) B));
+
+              mGraphics.setColor(colors.get(key));
               m = (x + i - 2 + mDimension.width) % mDimension.width;
               n = (y + j - 2 + mDimension.height) % mDimension.height;
 
-              mCouleurs[m][n] = lColor;
+              mCouleurs[m][n] = colors.get(key);
               if (!mSuspendu) {
                 mGraphics.fillRect(m, n, 1, 1);
               }
@@ -398,12 +405,15 @@ public class CPainting extends Canvas implements MouseListener {
                   B += CPainting.mMatriceConv49[k][l] * mCouleurs[m][n].getBlue();
                 }
               }
-              lColor = new Color((int) R, (int) G, (int) B);
-              mGraphics.setColor(lColor);
+              int key = (int) (65536 * R + 256 * G + B);
+              if(colors.get(key) == null)
+            	  colors.put(key, new Color((int) R, (int) G, (int) B));
+
+              mGraphics.setColor(colors.get(key));
               m = (x + i - 3 + mDimension.width) % mDimension.width;
               n = (y + j - 3 + mDimension.height) % mDimension.height;
 
-              mCouleurs[m][n] = lColor;
+              mCouleurs[m][n] = colors.get(key);
               if (!mSuspendu) {
                 mGraphics.fillRect(m, n, 1, 1);
               }
